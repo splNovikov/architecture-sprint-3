@@ -27,6 +27,6 @@
 [monolith.puml](diagrams%2Fmonolith%2Fcontext%2Fmonolith.puml)
 
 # Задание 2
-- Диаграмма контейнеров: [containers.puml](diagrams%2Fupdated_solution%2Fcontainers%2Fcontainers.puml)
-- Диаграмма компоненты: [сomponent.puml](diagrams%2Fupdated_solution%2Fcomponents%2F%D1%81omponent.puml)
+- Диаграмма контейнеров: [containers.puml](diagrams%2Fhw_solution%2Fcontainers.puml)
+- Диаграмма компоненты: [сomponent.puml](diagrams%2Fhw_solution%2F%D1%81omponent.puml)
 - 
