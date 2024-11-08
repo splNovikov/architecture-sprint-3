@@ -28,3 +28,5 @@
 
 # Задание 2
 - Диаграмма контейнеров: [containers.puml](diagrams%2Fupdated_solution%2Fcontainers%2Fcontainers.puml)
+- Диаграмма компоненты: [сomponent.puml](diagrams%2Fupdated_solution%2Fcomponents%2F%D1%81omponent.puml)
+- 
