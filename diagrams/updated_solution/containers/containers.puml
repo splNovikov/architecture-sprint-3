@@ -1,0 +1,81 @@
+@startuml
+title Smart House Container Diagram
+
+left to right direction
+
+!includeurl ./C4_Container.puml
+
+Person(user, "User", "A user of the smart-house system")
+
+Container(UI, "UI", "web app, mobile app", "Handles user interactions")
+
+
+System(SmartHouse, "Smart House System", "System managing devices, modules, etc.")
+Container_Boundary(SmartHouse, "Smart House System") {
+    Container_Boundary(SmartHouseGW, "Gateway") {
+        Container(GW, "Gateway", "Distribute requests")
+        System_Ext(LB, "Load Balancer", "Manages system load")
+        System_Ext(CB, "Circuit Breaker")
+        System_Ext(RL, "Rate Limiter")
+        System_Ext(Auth, "Autentication/Authorization")
+    }
+
+    Container_Boundary(SmartHouseServices, "Services") {
+        Container(Modules, "Modules", "Manages Modules")
+        Container(ModulesDatabase, "Modules Database", "PostgreSQL", "Stores modules data")
+
+        Container(Devices, "Devices", "Manages Devices")
+        Container(DevicesDatabase, "Devices Database", "PostgreSQL", "Stores devices data")
+
+        Container(Scenarios, "Scenarios", "Manages Scenarios")
+        Container(ScenariosDatabase, "Scenarios Database", "PostgreSQL", "Stores scenarios data")
+
+        Container(Monitoring, "Monitoring", "Set of devices data")
+
+        Container(Kafka, "Kafka", "Logs devices state changes")
+    }
+}
+
+System(House, "House", "House with devices and modules")
+Container_Boundary(House, "House with devices and modules") {
+    Container(Device, "Device Trigger", "Example of user's device, which should toggle on/off the state of connected device")
+
+    Container_Boundary(Module, "Module") {
+        Container(CO2, "CO2", "CO2 -level detector")
+        Container(Lightness, "Lightness", "Lightness -level detector")
+        Container(Temperature, "Temperature", "Temperature -level detector")
+        Container(MotionsDetection, "Motion Detection", "Motion detector")
+    }
+}
+
+
+Rel(user, UI, "Uses the system")
+
+Rel(UI, GW, "Interacts with the system")
+
+Rel(GW, LB, " ")
+Rel(GW, CB, " ")
+Rel(GW, RL, " ")
+Rel(GW, Auth, " ")
+Rel(GW, Modules, "crud modules")
+Rel(GW, Devices, "crud devices")
+Rel(GW, Scenarios, "crud Scenarios")
+
+Rel(Modules, ModulesDatabase, "Stores modules in DB")
+
+Rel(Devices, Scenarios, "list of devices")
+Rel(Devices, DevicesDatabase, "Stores devices in DB")
+Rel(Devices, Device, "list of devices")
+
+Rel(Scenarios, Devices, "Toggle devices by scenario")
+Rel(Scenarios, ScenariosDatabase, "Stores devices in DB")
+
+Rel(GW, Monitoring, "devices stats")
+
+Rel(Monitoring, Kafka, "Get devices state and statistics")
+
+Rel(Kafka, Scenarios, "Notifies of state changes to trigger necessary scenario")
+
+Rel(Module, Monitoring, "Sends all device changing state")
+
+@enduml
