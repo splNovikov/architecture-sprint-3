@@ -29,4 +29,4 @@
 # Задание 2
 - Диаграмма контейнеров: [containers.puml](diagrams%2Fhw_solution%2Fcontainers.puml)
 - Диаграмма компоненты: [сomponent.puml](diagrams%2Fhw_solution%2F%D1%81omponent.puml)
-- 
+- Диаграмма кода: [code.puml](diagrams%2Fhw_solution%2Fcode.puml)
