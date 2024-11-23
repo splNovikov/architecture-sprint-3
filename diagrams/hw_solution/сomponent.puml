@@ -1,0 +1,28 @@
+@startuml
+title SmartHouse Web Application Component Diagram
+
+top to bottom direction
+
+!includeurl ./C4_Component.puml
+
+
+Container_Boundary(SmartHouseSystem, "SmartHouse System") {
+  Container(ScenariosService, "Scenarios Service", "Java, Spring", "Handles user interactions and devices events")
+  Container(Database, "Database", "PostgreSQL", "Stores scenarios configuration")
+  Container(Devices, "Devices Service", "Java, Spring", "Manages Device state")
+}
+
+Container(ScenariosService, "Scenarios Service", "Java, Spring") {
+  Component(CRUD_API, "Scenarios", "Handles scenarios CRUD operations")
+  Component(EventHandlersAPI, "EventHandler", "Handles events passed from DataBus")
+  Component(ServiceLayer, "CRUD Operations Service Layer", "Business logic")
+  Component(EventsServiceLayer, "Event Handler Service Layer", "Business logic")
+  Component(RepositoryLayer, "Repository Layer")
+}
+
+Rel(CRUD_API,ServiceLayer,"Calls business logic")
+Rel(EventHandlersAPI,EventsServiceLayer,"Calls business logic")
+Rel(ServiceLayer,RepositoryLayer,"Reads/Writes data")
+Rel(RepositoryLayer,Database,"Reads/Writes scenarios data")
+Rel(EventsServiceLayer,Devices,"Manipulates with device state")
+@enduml

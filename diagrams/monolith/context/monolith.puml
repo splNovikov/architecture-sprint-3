@@ -1,0 +1,22 @@
+@startuml
+title Cozy House Context Diagram
+
+left to right direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Person(user, "User", "A user of the cozy house system")
+
+System(ui, "UI", "An interface")
+System(CozyHouseSystem, "Cozy House System", "System managing devices state and collecting temperature")
+
+System_Ext(device, "on/off-type device", "Device which handles houses' temperature state")
+System_Ext(deviceTemperature, "temperature sensor device", "External bank for processing payments")
+
+Rel(user, ui, "Uses the system")
+Rel(ui, CozyHouseSystem, "request")
+Rel(CozyHouseSystem, ui, "response")
+Rel(CozyHouseSystem, device, "Toggling device's state")
+Rel(deviceTemperature, CozyHouseSystem, "Passes data")
+
+@enduml
