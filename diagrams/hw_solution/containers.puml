@@ -7,13 +7,14 @@ left to right direction
 
 Person(user, "User", "A user of the smart-house system")
 
-Container(UI, "UI", "web app, mobile app", "Handles user interactions")
+Container(UIWeb, "Web App", "React app", "Handles user interactions")
+Container(UIMobile, "Mobile App", "React Native", "Handles user interactions")
 
 
 System(SmartHouse, "Smart House System", "System managing devices, modules, etc.")
 Container_Boundary(SmartHouse, "Smart House System") {
     Container_Boundary(SmartHouseGW, "Gateway") {
-        Container(GW, "Gateway", "Distribute requests")
+        Container(GW, "Gateway", "Kong", "Distribute requests")
         System_Ext(LB, "Load Balancer", "Manages system load")
         System_Ext(CB, "Circuit Breaker")
         System_Ext(RL, "Rate Limiter")
@@ -21,16 +22,16 @@ Container_Boundary(SmartHouse, "Smart House System") {
     }
 
     Container_Boundary(SmartHouseServices, "Services") {
-        Container(Modules, "Modules", "Manages Modules")
+        Container(Modules, "Modules", "Java", "Manages Modules")
         Container(ModulesDatabase, "Modules Database", "PostgreSQL", "Stores modules data")
 
-        Container(Devices, "Devices", "Manages Devices")
+        Container(Devices, "Devices", "Java", "Manages Devices")
         Container(DevicesDatabase, "Devices Database", "PostgreSQL", "Stores devices data")
 
-        Container(Scenarios, "Scenarios", "Manages Scenarios")
+        Container(Scenarios, "Scenarios", "Java", "Manages Scenarios")
         Container(ScenariosDatabase, "Scenarios Database", "PostgreSQL", "Stores scenarios data")
 
-        Container(Monitoring, "Monitoring", "Set of devices data")
+        Container(Monitoring, "Monitoring", "Java", "Set of devices data")
 
         Container(Kafka, "Kafka", "Logs devices state changes")
     }
@@ -49,9 +50,11 @@ Container_Boundary(House, "House with devices and modules") {
 }
 
 
-Rel(user, UI, "Uses the system")
+Rel(user, UIWeb, "Uses the system")
+Rel(user, UIMobile, "Uses the system")
 
-Rel(UI, GW, "Interacts with the system")
+Rel(UIWeb, GW, "Interacts with the system")
+Rel(UIMobile, GW, "Interacts with the system")
 
 Rel(GW, LB, " ")
 Rel(GW, CB, " ")
