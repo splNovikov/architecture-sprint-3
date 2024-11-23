@@ -67,14 +67,14 @@ class TelemetryData {
   +String value
 }
 
-User "1" -- "0..*" Home : has
+User "0..*" -- "0..*" Home : has
 Home "1" -- "0..*" Module : has
 Home "1" -- "0..*" Scenario : has
 Scenario "1" -- "0..*" Condition : has
 Scenario "1" -- "0..*" Rule : has
 Home "1" -- "0..*" Device : has
-Device "1" -- "1" DeviceType : includes
-Device "1" -- "1" MeasureType : includes
+Device "0..*" -- "1" DeviceType : includes
+Device "0..*" -- "1" MeasureType : includes
 Device "1" -- "0..*" TelemetryData : includes
 
 @enduml
